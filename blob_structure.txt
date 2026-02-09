@@ -29,9 +29,8 @@ struct tdx_blob
 	_u32 length;               // The length in bytes of the entire blob
 	_u32 reserved0;            // Reserved space
 	_u64 reserved1[509];       // Reserved space
-	_u64 sigstruct[256];       // 2KB sigstruct, intel_tdx_module.so.sigstruct
-	_u64 reserved2[256];       // Reserved space
-	_u64 reserved3[N*512];     // Additional reserved space, 4KB aligned (offset_of_module = 8KB + (N * 4KB). N>=0)
+	_u8  sigstruct[N*4096];    // intel_tdx_module.so.sigstruct, 4KB aligned, zero-padded
+	                           // offset_of_module = 4KB + (N * 4KB). N>=1
 	_u8  module[];             // intel_tdx_module.bin, 4KB aligned, to the end of the file
 }
 
